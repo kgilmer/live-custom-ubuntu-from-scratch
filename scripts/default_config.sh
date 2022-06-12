@@ -49,6 +49,17 @@ function customize_image() {
     apt-get install -y \
     regolith-system-ubuntu
 
+    # useful tools
+    apt-get install -y \
+    clamav-daemon \
+    terminator \
+    apt-transport-https \
+    curl \
+    vim \
+    nano \
+    memtest86+ \
+    less
+
     # purge
     apt-get purge -y \
     transmission-gtk \
