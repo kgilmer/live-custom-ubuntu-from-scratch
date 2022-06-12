@@ -5,9 +5,9 @@
 # Usage: Copy this file to config.sh and make changes there.  Keep this file (default_config.sh) as-is
 #   so that subsequent changes can be easily merged from upstream.  Keep all customiations in config.sh
 
-# The version of Ubuntu to generate.  Successfully tested: bionic, cosmic, disco, eoan, focal, groovy
+# The version of Ubuntu to generate.  Successfully tested: bionic, cosmic, disco, eoan, jammy, groovy
 # See https://wiki.ubuntu.com/DevelopmentCodeNames for details
-export TARGET_UBUNTU_VERSION="focal"
+export TARGET_UBUNTU_VERSION="jammy"
 
 # The Ubuntu Mirror URL. It's better to change for faster download.
 # More mirrors see: https://launchpad.net/ubuntu/+archivemirrors
@@ -39,11 +39,18 @@ export TARGET_PACKAGE_REMOVE="
 # Package customisation function.  Update this function to customize packages
 # present on the installed system.
 function customize_image() {
+    apt install -y gpg wget
+
+    wget -qO - https://regolith-desktop.io/regolith.key | gpg --dearmor | sudo tee /usr/share/keyrings/regolith-archive-keyring.gpg
+    echo deb "[arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.io/release-ubuntu-jammy-amd64 jammy main" | sudo tee /etc/apt/sources.list.d/regolith.list
+    apt update
+
     # install graphics and desktop
     apt-get install -y \
     plymouth-theme-ubuntu-logo \
     ubuntu-gnome-desktop \
-    ubuntu-gnome-wallpapers
+    ubuntu-gnome-wallpapers \
+    regolith-desktop
 
     # useful tools
     apt-get install -y \
