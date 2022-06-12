@@ -47,20 +47,7 @@ function customize_image() {
 
     # install graphics and desktop
     apt-get install -y \
-    plymouth-theme-ubuntu-logo \
-    ubuntu-gnome-desktop \
-    ubuntu-gnome-wallpapers \
-    regolith-desktop
-
-    # useful tools
-    apt-get install -y \
-    clamav-daemon \
-    terminator \
-    apt-transport-https \
-    curl \
-    vim \
-    nano \
-    less
+    regolith-system-ubuntu
 
     # purge
     apt-get purge -y \
@@ -70,7 +57,9 @@ function customize_image() {
     gnome-mines \
     gnome-sudoku \
     aisleriot \
-    hitori
+    hitori \
+    ubuntu-session \
+    ubuntu-desktop
 }
 
 # Used to version the configuration.  If breaking changes occur, manual
